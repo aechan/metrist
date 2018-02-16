@@ -1,0 +1,107 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Metrist | Home</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link href="css/album.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">Metrist is a handy tool that lets you easily record your Medium posts into the bitcoin blockchain via <a href="http://po.et/">po.et</a> to prevent plagiarism and copyright disputes.</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                <li><a href="https://github.com/aechan/" class="text-white">Follow me on GitHub</a></li>
+                <li><a href="http://alecchan.io" class="text-white">Check me out</a></li>
+                <li class="text-white">Send me some POE: <a href="#" class="js-tooltip js-copy" title="Copy to clipboard" data-copy="0xce760270f6614ca69ff0925158ce7681154dbc7e" data-tooltip="Copied!" data-placement="bottom">0xce760270f6614ca69ff0925158ce7681154dbc7e</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="/" class="navbar-brand d-flex align-items-center">
+            <i class="far fa-edit fa-2x" style="padding-right: 10px;"></i>
+            <h2> Metrist</h2>
+          </a>
+          <a href="/submit" class="navbar-brand d-flex align-items-center nav-hover">
+            Submit a Work
+          </a>
+          <a href="/register" class="navbar-brand d-flex align-items-center nav-hover">
+            Register on Metrist
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <body>
+    <main role="main">
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="text-center default-text py-3"><i class="fa fa-check-circle"></i> Register on Metrist</h2>
+                                <!--Body-->
+                                <h4>First, we require your po.et Frost API key to publish the work for you.<br/>Get it from <a href="https://frost.po.et/">here</a>.</h4><br/>
+                                <div class="md-form">
+                                    <label for="formFrost"><i class="fas fa-snowflake fa-2x prefix grey-text"></i> Your Frost API Key</label>
+                                    <input type="text" id="formFrost" class="form-control">
+                                </div>
+                                <br/>
+                                <h4>Second, we need you to authenticate your Medium account.</h4><br/>
+                                <div class="text-center">
+                                    <button class="btn btn-default waves-effect waves-light" id="mediumreg" style="font-size: 1.2rem;"><i class="fab fa-medium"></i> Authenticate on Medium</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main><!-- /.container -->
+            <footer class="text-muted">
+                <div class="container">
+                    <p class="float-right">
+                    <a href="#">Back to top</a>
+                    </p>
+                    <p>Metrist is &copy; Alec Chan, but feel free to fork the code on <a href="https://github.com/aechan/metrist">GitHub!</a></p>
+                    <p>New to po.et? <a href="http://po.et">Visit the homepage</a> and read about the project.</p>
+                </div>
+            </footer>
+            
+            <!-- Bootstrap core JavaScript
+            ================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script src="node_modules/jquery/dist/jquery.min.js"></script>
+            <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+            <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
+            <script src="js/RegisterForm.js"></script>
+            <script src="js/CookieManager.js"></script>
+            <script src="js/Register.js"></script>
+  </body>
+  
+</html>
