@@ -48,6 +48,28 @@ namespace Metrist.Modules
 
                 return resp;
             });
+
+            Post("/api/postRawWork", args => {
+                var body = RequestStream.FromStream(Request.Body).AsString();
+                
+                if(!string.IsNullOrWhiteSpace(body))
+                {
+                    string poet = Request.Headers["x-frost-api"].FirstOrDefault();
+
+                    var work = JsonConvert.DeserializeObject<WorkAttributes>(body);
+
+                    var frost = new Frost(poet, new Configuration(), FrostLogging);
+                    frost.CreateWork(work);
+                    return "OK";
+                }
+                else
+                {
+                    var res = new Response();
+                    res.StatusCode = HttpStatusCode.BadRequest;
+                    res.ReasonPhrase = "Empty body sent";
+                    return res;
+                }
+            });
         }
 
         private void MediumToPoet(string url, string frostAPI, string mediumUsername)

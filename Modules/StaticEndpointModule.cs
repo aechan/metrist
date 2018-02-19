@@ -14,6 +14,10 @@ namespace Metrist.Modules
             Get("/submit", _ => {
                 return Response.AsFile("public/submit.html");
             });
+
+            Get("/submitnew", _ => {
+                return Response.AsFile("public/submitnew.html");
+            });
         }
     }
 }
