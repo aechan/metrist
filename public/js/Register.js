@@ -12,14 +12,25 @@ function getParameterByName(name, url) {
 $(document).ready(function() {
     if(getParameterByName("code")) {
         var accessCode = getParameterByName("code");
-        var config = JSON.parse(cookieHandler.get("reg"));
-        config.medium_api = accessCode;
-        cookieHandler.set("reg", JSON.stringify(config));
+        fetch('/api/getMediumAccessToken', {
+            headers: new Headers({
+                'x-medium-code': accessCode
+            })
+        }).then(function(resp){
+            resp.json().then(function(json) {
+                console.log("Got: " + json);
+                var config = JSON.parse(cookieHandler.get("reg"));
+                config.medium_api = json;
+                console.log(JSON.stringify(config));
+                cookieHandler.set("reg", JSON.stringify(config));
+            });
+        });
         
     } else {
         $("#mediumreg").click(function() {
             cookieHandler.set("reg", JSON.stringify({
-                frost_api: $("#formFrost").val()
+                frost_api: $("#formFrost").val(),
+                medium_api: {}
             }));
             fetch('/api/getMediumAuthURL').then(function(resp){
                 resp.text().then(function(data){

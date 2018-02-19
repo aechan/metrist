@@ -1,4 +1,5 @@
 using Nancy;
+using System;
 
 namespace Metrist.Modules
 {
@@ -12,10 +13,6 @@ namespace Metrist.Modules
 
             Get("/submit", _ => {
                 return Response.AsFile("public/submit.html");
-            });
-
-            Get("/register", _ => {
-                return Response.AsFile("public/register.html");
             });
         }
     }

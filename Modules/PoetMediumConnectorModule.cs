@@ -1,26 +1,28 @@
 using Nancy;
 using Nancy.Extensions;
 using Nancy.IO;
-using Medium;
 using System.Linq;
 using FrostSharp;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using CodeHollow.FeedReader;
 
 namespace Metrist.Modules
 {
     public class PoetMediumConnectorModule : NancyModule
     {
-        private const bool FrostLogging = true;
+        private const bool FrostLogging = false;
         public PoetMediumConnectorModule()
         {
             Post("/api/postWork", args => {
                 var body = RequestStream.FromStream(Request.Body).AsString();
-
                 if(!string.IsNullOrWhiteSpace(body))
                 {
-                    MediumToPoet(body, Request.Headers["x-frost-api"].FirstOrDefault(), Request.Headers["x-medium-api"].FirstOrDefault());
+                    string poet = Request.Headers["x-frost-api"].FirstOrDefault();
+                    string medium = Request.Headers["x-medium-api"].FirstOrDefault();                    
+
+                    MediumToPoet(body, poet, medium);
                     return "OK";
                 }
                 else
@@ -37,37 +39,37 @@ namespace Metrist.Modules
                 var works = frost.GetAllWorks().Result;
 
                 string resp = "{\"works\": [";
-                for(int i = 0; i < works.Count-1; i++)
+                for(int i = works.Count-1; i > 0; i--)
                 {
                     resp+=works[i].ToJSON()+",";
                 }
-                resp+=works[works.Count-1].ToJSON();
+                resp+=works[0].ToJSON();
                 resp += "]}";
 
                 return resp;
             });
         }
 
-        private void MediumToPoet(string url, string frostAPI, string mediumAPI)
+        private void MediumToPoet(string url, string frostAPI, string mediumUsername)
         {
-            var oAuthClient = new Medium.OAuthClient("c582c34530cc", "03f8d756aee03697bbc58487eca1f8caf57d1736");
-            var accessToken = oAuthClient.GetAccessToken(mediumAPI, "http://metrist.org/register");
+            var feed = FeedReader.ReadAsync("https://medium.com/feed/"+mediumUsername).Result;
 
-            var client = new Medium.Client();
-            var user = client.GetCurrentUser(accessToken);
-
-            var pubs = client.GetPublications(user.Id, accessToken);
-
-            var theWork = pubs.Where(x => x.Url == url).FirstOrDefault();
+            var work = feed.Items.Where(x => x.Link.Split('?')[0] == url).FirstOrDefault();
+            var specItem = (CodeHollow.FeedReader.Feeds.Rss20FeedItem)work.SpecificItem;
 
             var frost = new Frost(frostAPI, new Configuration(), FrostLogging);
-            frost.CreateWork(new WorkAttributes(
-                theWork.Name,
-                DateTime.UtcNow,
-                DateTime.UtcNow,
-                user.Name,
-                theWork.Description + " Read full text at: " + theWork.Url
-            ));
+
+            var date = work.PublishingDate == null ? work.PublishingDate.Value : DateTime.UtcNow;
+            
+            var author = specItem.DC.Creator;
+
+            var id = frost.CreateWork(new WorkAttributes(
+                work.Title,
+                date,
+                date,
+                author,
+                work.Content + "<br/>Posted from <a href='http://metrist.org'>metrist</a>. <a href='"+url+"'>Source</a>"
+            )).Result;
         }
     }
 }
