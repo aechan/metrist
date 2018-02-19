@@ -16,7 +16,7 @@ public class Server
         .UseWebRoot(Path.Combine(Directory.GetCurrentDirectory(), "public"))
         .UseKestrel()
         .UseStartup<Startup>()
-        .UseUrls("http://localhost:80")
+        .UseUrls("http://0.0.0.0:80")
         .Build();
 
         host.Run();
