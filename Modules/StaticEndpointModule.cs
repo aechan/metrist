@@ -18,6 +18,13 @@ namespace Metrist.Modules
             Get("/submitnew", _ => {
                 return Response.AsFile("public/submitnew.html");
             });
+
+            Get("/work/:id", args => {
+                string id = args.id;
+                var res = Response.AsFile("public/getwork.html");
+                res.Headers.Add("x-work-id", id);
+                return res;
+            });
         }
     }
 }
