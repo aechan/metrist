@@ -11,12 +11,13 @@ public class Server
 {
     public static void Main(string[] args)
     {
+        int port = int.Parse(args[0]);
         var host = new WebHostBuilder()
         .UseContentRoot(Path.Combine(Directory.GetCurrentDirectory(), "public"))
         .UseWebRoot(Path.Combine(Directory.GetCurrentDirectory(), "public"))
         .UseKestrel()
         .UseStartup<Startup>()
-        .UseUrls("http://0.0.0.0:80")
+        .UseUrls("http://0.0.0.0:"+port)
         .Build();
 
         host.Run();
