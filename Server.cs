@@ -11,7 +11,14 @@ public class Server
 {
     public static void Main(string[] args)
     {
-        int port = int.Parse(args[0]);
+        int port = 8080;
+        if(args.Length > 0) {
+            int.TryParse(args[0], out port);  
+            if(port == 0) {
+                port = 8080;
+            }
+        }
+
         var host = new WebHostBuilder()
         .UseContentRoot(Path.Combine(Directory.GetCurrentDirectory(), "public"))
         .UseWebRoot(Path.Combine(Directory.GetCurrentDirectory(), "public"))
