@@ -1,7 +1,9 @@
 var options = {  
     weekday: "long", year: "numeric", month: "short",  
     day: "numeric", hour: "2-digit", minute: "2-digit"  
-};  
+};
+
+$("#onboard-message").html("Metrist allows you to view all works that you have submitted to the po.et blockchain and to protect your Medium posts or submit a new work.<br/>To get started create a Frost API key: <a href='https://frost.po.et'>here</a>.");
 
 $("#submit").click(function() {
     $("#works").html("");
@@ -29,6 +31,13 @@ $("#submit").click(function() {
                     </div>\
                 ');
             });
+            $("#onboard-message").html("Here are all the works that you have submitted to the po.et blockchain.");
+            window.localStorage.setItem("api-key", $("#frostAPI").val());
         });
     });
 });
+
+if(window.localStorage.getItem("api-key") !== null) {
+    $("#frostAPI").val(window.localStorage.getItem("api-key"));
+    $("#submit").click();
+}

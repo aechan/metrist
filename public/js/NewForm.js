@@ -3,6 +3,10 @@ function parseDate(s) {
     return new Date(b[0], --b[1], b[2]);
 }
 
+if(window.localStorage.getItem("api-key") !== null) {
+    $("#frostAPI").val(window.localStorage.getItem("api-key"));
+}
+
 (function() {
     $("#submitform").submit(function(event) {
         event.preventDefault();

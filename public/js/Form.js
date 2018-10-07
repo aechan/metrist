@@ -1,3 +1,6 @@
+if(window.localStorage.getItem("api-key") !== null) {
+    $("#frostAPI").val(window.localStorage.getItem("api-key"));
+}
 (function() {
     $("#submitform").submit(function(event) {
         event.preventDefault();
